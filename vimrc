@@ -1,26 +1,25 @@
-" vimrc by Chunjun Li
-
 " --------------VIMBUNDDLES----------------
 set shell=/bin/bash
-set nocompatible              " be iMproved, required
-filetype off                  " required                                                              
-
-" set the runtime path to include Vundle and initialize                                               
+set nocompatible
+filetype off
  set rtp+=~/.vim/bundle/Vundle.vim                                                                     
  call vundle#begin()
- " alternatively, pass a path where Vundle should install plugins
- "call vundle#begin('~/some/path/here')
- " let Vundle manage Vundle, required
  Plugin 'VundleVim/Vundle.vim'
  Plugin 'ycm-core/YouCompleteMe'
- " All of your Plugins must be added before the following line
- call vundle#end()            " required
- filetype plugin indent on    " required
- " To ignore plugin indent changes, instead use:
- " 代码折叠
- set foldmethod=manual
-" Last Update: 2018-02-11
-let mapleader = ";"    " 比较习惯用;作为命令前缀，右手小拇指直接能按到
+ Plugin 'The-NERD-Commenter'
+ Plugin 'The-NERD-tree'
+ Plugin 'bufexplorer.zip'
+ Plugin 'echofunc.vim'
+ Plugin 'ShowFunc.vim'
+ Plugin 'vim-scripts/genutils'
+ Plugin 'vim-scripts/lookupfile'
+ Plugin 'vim-scripts/taglist.vim'
+ call vundle#end() 
+ filetype plugin indent on
+"----------------end vim bunddles----------
+
+" 比较习惯用;作为命令前缀，右手小拇指直接能按到
+let mapleader = ";"  
 " 把空格键映射成:
 nmap <space> :
 " 快捷打开编辑vimrc文件的键盘绑定
@@ -172,7 +171,7 @@ iab iname Chunjun Li
 iab iauth Chunjun Li <lichunjun@orvibo.com>
 iab ifile <C-R>=expand("%:t")<CR>
 " 插件窗口的宽度，如TagList,NERD_tree等，自己设置
-let s:PlugWinSize = 50
+let s:PlugWinSize = 30
 " ShowFunc.vim  <-------- 暂时没有使用
 " http://www.vim.org/scripts/script.php?script_id=397
 " F2打开ShowFunc TagList窗口，显示C/C++函数原型
