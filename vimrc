@@ -1,24 +1,55 @@
-" vimrc by Chunjun Li
+call plug#begin('~/.vim/plugged')
+Plug 'Valloric/YouCompleteMe'
+Plug 'Yggdroot/indentLine'
+Plug 'tenfyzhong/CompleteParameter.vim'
+Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdcommenter'
+Plug 'jlanzarotta/bufexplorer'
+Plug 'vim-scripts/genutils'
+Plug 'vim-scripts/lookupfile'
+Plug 'vim-scripts/taglist.vim'
+Plug 'vim-scripts/echofunc.vim'
+Plug 'vim-scripts/ShowFunc.vim'
+Plug 'jiangmiao/auto-pairs'
+call plug#end()
 
-" --------------VIMBUNDDLES----------------
-set shell=/bin/bash
-set nocompatible              " be iMproved, required
-filetype off                  " required                                                              
 
-" set the runtime path to include Vundle and initialize                                               
- set rtp+=~/.vim/bundle/Vundle.vim                                                                     
- call vundle#begin()
- " alternatively, pass a path where Vundle should install plugins
- "call vundle#begin('~/some/path/here')
- " let Vundle manage Vundle, required
- Plugin 'VundleVim/Vundle.vim'
- Plugin 'ycm-core/YouCompleteMe'
- " All of your Plugins must be added before the following line
- call vundle#end()            " required
- filetype plugin indent on    " required
- " To ignore plugin indent changes, instead use:
+
+" about indentLine
+let g:indentLine_enabled = 1
+" about indentLine end
+" about YouCompleteMe
+let g:ycm_server_python_interpreter = '/usr/bin/python'
+let g:ycm_global_ycm_extra_conf = '~/.vim/plugged/YouCompleteMe/third_party/ycmd/.ycm_extra_conf.py'
+let g:ycm_add_preview_to_completeopt = 0
+let g:ycm_show_diagnostics_ui = 0
+let g:ycm_server_log_level = 'info'
+let g:ycm_min_num_identifier_candidate_chars = 2
+let g:ycm_collect_identifiers_from_comments_and_string = 1
+let g:ycm_complete_in_string = 1
+let g:ycm_key_invoke_completion = '<c-z>'
+set completeopt=menu,menuone
+noremap <c-z> <NOP>
+let g:ycm_semantic_triggers = {'c,cpp,python,java,go,erlang,perl' : ['return!\w{2}'],'cs,lua,javascript' : ['return!\w{2}'],}
+" about YouCompleteMe end
+
+" about CompleteParameter
+let g:AutoPairs = {'[':']', '{':'}',"'":"'",'"':'"', '`':'`'}
+inoremap <buffer><silent> ) <C-R>=AutoPairsInsert(')')<CR>
+
+inoremap <silent><expr> ( complete_parameter#pre_complete("()")
+smap <c-j> <Plug>(complete_parameter#goto_next_parameter)
+imap <c-j> <Plug>(complete_parameter#goto_next_parameter)
+smap <c-k> <Plug>(complete_parameter#goto_previous_parameter)
+imap <c-k> <Plug>(complete_parameter#goto_previous_parameter)
+
+
+" 定义快捷键到行首和行尾
+nmap LH 0
+nmap LT $
  " 代码折叠
- set foldmethod=manual
+set foldmethod=manual
+
 " Last Update: 2018-02-11
 let mapleader = ";"    " 比较习惯用;作为命令前缀，右手小拇指直接能按到
 " 把空格键映射成:
@@ -27,7 +58,7 @@ nmap <space> :
 map <silent> <leader>ee :e $HOME/.vimrc<cr>
 autocmd! bufwritepost *.vimrc source $HOME/.vimrc
 " ^z快速进入shell
-nmap <C-Z> :shell<cr>
+"nmap <C-Z> :shell<cr>
 " 判断操作系统
 if (has("win32") || has("win64") || has("win32unix"))
     let g:isWin = 1
@@ -42,6 +73,9 @@ else
 endif
 set nocompatible    " 关闭兼容模式
 syntax enable       " 语法高亮
+" 开启文件类型侦测
+filetype on
+" 根据侦测到的不同类型加载对应的插件
 filetype plugin on  " 文件类型插件
 filetype indent on
 set autoindent
@@ -104,7 +138,7 @@ function! CurDir()
     let curdir = substitute(getcwd(), $HOME, "~", "g")
     return curdir
 endfunction
-set statusline=[%n]\ %f%m%r%h\ \|\ \ pwd:\ %{CurDir()}\ \ \|%=\|\ %l,%c\ %p%%\ \|\ ascii=%b,hex=%b%{((&fenc==\"\")?\"\":\"\ \|\ \".&fenc)}\ \|\ %{$USER}\ @\ %{hostname()}\
+"set statusline=[%n]\ %f%m%r%h\ \|\ \ pwd:\ %{CurDir()}\ \ \|%=\|\ %l,%c\ %p%%\ \|\ ascii=%b,hex=%b%{((&fenc==\"\")?\"\":\"\ \|\ \".&fenc)}\ \|\ %{$USER}\ @\ %{hostname()}\
 " 第80列往后加下划线
 "au BufWinEnter * let w:m2=matchadd('Underlined', '\%>' . 80 . 'v.\+', -1)
 " 根据给定方向搜索当前光标下的单词，结合下面两个绑定使用
@@ -137,7 +171,7 @@ imap <C-a> <HOME>
 "imap <C-k> <esc>d$i  " 与自动补全中的绑定冲突
 " 恢复上次文件打开位置
 set viminfo='10,\"100,:20,%,n~/.viminfo
-au BufReadPost if line("'\"") > 0|if line("'\"") <= line("{1}quot;)|exe("norm '\"")|else|exe "norm {1}quot;|endif|endif
+"au BufReadPost if line("'\"") > 0|if line("'\"") <= line("{1}quot;)|exe("norm '\"")|else|exe "norm {1}quot;|endif|endif
 " 删除buffer时不关闭窗口
 command! Bclose call <SID>BufcloseCloseIt()
 function! <SID>BufcloseCloseIt()
@@ -172,7 +206,7 @@ iab iname Chunjun Li
 iab iauth Chunjun Li <lichunjun@orvibo.com>
 iab ifile <C-R>=expand("%:t")<CR>
 " 插件窗口的宽度，如TagList,NERD_tree等，自己设置
-let s:PlugWinSize = 50
+let s:PlugWinSize = 30
 " ShowFunc.vim  <-------- 暂时没有使用
 " http://www.vim.org/scripts/script.php?script_id=397
 " F2打开ShowFunc TagList窗口，显示C/C++函数原型
@@ -215,13 +249,13 @@ let OmniCpp_MayCompleteDot = 1
 let OmniCpp_MayCompleteArrow = 1
 let OmniCpp_MayCompleteScope = 1
 " c-j自动补全，当补全菜单打开时，c-j,k上下选择
-imap <expr> <c-j>      pumvisible()?"\<C-N>":"\<C-X><C-O>"
-imap <expr> <c-k>      pumvisible()?"\<C-P>":"\<esc>"
+"imap <expr> <c-j>      pumvisible()?"\<C-N>":"\<C-X><C-O>"
+"imap <expr> <c-k>      pumvisible()?"\<C-P>":"\<esc>"
 " f:文件名补全，l:行补全，d:字典补全，]:tag补全
-imap <C-]>             <C-X><C-]>
-imap <C-F>             <C-X><C-F>
-imap <C-D>             <C-X><C-D>
-imap <C-L>             <C-X><C-L>
+"imap <C-]>             <C-X><C-]>
+"imap <C-F>             <C-X><C-F>
+"imap <C-D>             <C-X><C-D>
+"imap <C-L>             <C-X><C-L>
 " NERD_commenter.vim
 " http://www.vim.org/scripts/script.php?script_id=1218
 " Toggle单行注释/“性感”注释/注释到行尾/取消注释
@@ -382,5 +416,6 @@ set termencoding=utf-8
 set encoding=utf-8
 hi Comment ctermfg=DarkGrey
 hi String ctermfg=DarkMagenta
+
 
 
