@@ -110,6 +110,7 @@ set tabstop=4
 set vb t_vb=
 set background=dark
 colorscheme desert
+"colorscheme dracula
 "set t_Co=256
 set history=400  " vim记住的历史操作的数量，默认的是20
 set autoread     " 当文件在外部被修改时，自动重新读取
@@ -234,28 +235,16 @@ let Tlist_Display_Prototype = 0
 " set tags+=~/.vim/tags/boost
 " build tags of your own project with Ctrl+F12
 map <F12> :!ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q .<CR><CR>
-" OmniCppComplete.vim
-" http://www.vim.org/scripts/script.php?script_id=1520
-set completeopt=menu
-let OmniCpp_ShowPrototypeInAbbr = 1
-let OmniCpp_DefaultNamespaces = ["std"]     " 逗号分割的字符串
-let OmniCpp_MayCompleteScope = 1
-let OmniCpp_ShowPrototypeInAbbr = 0
-let OmniCpp_SelectFirstItem = 2
-let OmniCpp_NamespaceSearch = 1
-let OmniCpp_GlobalScopeSearch = 1
-let OmniCpp_ShowAccess = 1
-let OmniCpp_MayCompleteDot = 1
-let OmniCpp_MayCompleteArrow = 1
-let OmniCpp_MayCompleteScope = 1
+
 " c-j自动补全，当补全菜单打开时，c-j,k上下选择
-"imap <expr> <c-j>      pumvisible()?"\<C-N>":"\<C-X><C-O>"
-"imap <expr> <c-k>      pumvisible()?"\<C-P>":"\<esc>"
+imap <expr> <c-j>      pumvisible()?"\<C-N>":"\<C-X><C-O>"
+imap <expr> <c-k>      pumvisible()?"\<C-P>":"\<esc>"
 " f:文件名补全，l:行补全，d:字典补全，]:tag补全
-"imap <C-]>             <C-X><C-]>
-"imap <C-F>             <C-X><C-F>
-"imap <C-D>             <C-X><C-D>
-"imap <C-L>             <C-X><C-L>
+imap <C-]>             <C-X><C-]>
+imap <C-F>             <C-X><C-F>
+imap <C-D>             <C-X><C-D>
+imap <C-L>             <C-X><C-L>
+
 " NERD_commenter.vim
 " http://www.vim.org/scripts/script.php?script_id=1218
 " Toggle单行注释/“性感”注释/注释到行尾/取消注释
@@ -269,9 +258,7 @@ let NERDTreeShowHidden = 1
 let NERDTreeWinPos = "right"
 let NERDTreeWinSize = s:PlugWinSize
 nmap <leader>n :NERDTreeToggle<cr>
-" DoxygenToolkit.vim
-" http://www.vim.org/scripts/script.php?script_id=987
-" 暂时没有使用
+
 " 更新ctags和cscope索引
 " href: http://www.vimer.cn/2009/10/把vim打造成一个真正的ide2.html
 " 稍作修改，提取出DeleteFile函数，修改ctags和cscope执行命令
@@ -414,8 +401,11 @@ nmap <silent> <leader>f :let @f=expand("%")<CR>
 set fileencodings=utf-8,gb2312,gbk,gb18030
 set termencoding=utf-8
 set encoding=utf-8
-hi Comment ctermfg=DarkGrey
-hi String ctermfg=DarkMagenta
+
+highlight PMenu ctermfg=40 ctermbg=0
+highlight PMenuSel ctermfg=0 ctermbg=4
+
+
 
 
 
