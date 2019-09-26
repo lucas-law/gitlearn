@@ -1,7 +1,4 @@
 call plug#begin('~/.vim/plugged')
-Plug 'Valloric/YouCompleteMe'
-Plug 'Yggdroot/indentLine'
-Plug 'tenfyzhong/CompleteParameter.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/nerdcommenter'
 Plug 'jlanzarotta/bufexplorer'
@@ -11,16 +8,23 @@ Plug 'vim-scripts/taglist.vim'
 Plug 'vim-scripts/echofunc.vim'
 Plug 'vim-scripts/ShowFunc.vim'
 Plug 'jiangmiao/auto-pairs'
+Plug 'ycm-core/YouCompleteMe'
+Plug 'Yggdroot/indentLine'
+Plug 'tenfyzhong/CompleteParameter.vim'
 call plug#end()
 
 
 
-" about indentLine
+"----------------------------------------------------
+"                    indentLine
+"----------------------------------------------------
 let g:indentLine_enabled = 1
-" about indentLine end
-" about YouCompleteMe
+
+"----------------------------------------------------
+"                   YouCompleteMe
+"----------------------------------------------------
 let g:ycm_server_python_interpreter = '/usr/bin/python'
-let g:ycm_global_ycm_extra_conf = '~/.vim/plugged/YouCompleteMe/third_party/ycmd/.ycm_extra_conf.py'
+let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
 let g:ycm_add_preview_to_completeopt = 0
 let g:ycm_show_diagnostics_ui = 0
 let g:ycm_server_log_level = 'info'
@@ -31,17 +35,18 @@ let g:ycm_key_invoke_completion = '<c-z>'
 set completeopt=menu,menuone
 noremap <c-z> <NOP>
 let g:ycm_semantic_triggers = {'c,cpp,python,java,go,erlang,perl' : ['return!\w{2}'],'cs,lua,javascript' : ['return!\w{2}'],}
-" about YouCompleteMe end
 
-" about CompleteParameter
-let g:AutoPairs = {'[':']', '{':'}',"'":"'",'"':'"', '`':'`'}
-inoremap <buffer><silent> ) <C-R>=AutoPairsInsert(')')<CR>
+"----------------------------------------------------
+"                   CompleteParameter
+"----------------------------------------------------
+let g:AutoPairs = {'[':']','(':')','{':'}',"'":"'",'"':'"', '`':'`'}
+"inoremap <buffer><silent> ) <C-R>=AutoPairsInsert(')')<CR>
 
-inoremap <silent><expr> ( complete_parameter#pre_complete("()")
-smap <c-j> <Plug>(complete_parameter#goto_next_parameter)
-imap <c-j> <Plug>(complete_parameter#goto_next_parameter)
-smap <c-k> <Plug>(complete_parameter#goto_previous_parameter)
-imap <c-k> <Plug>(complete_parameter#goto_previous_parameter)
+"inoremap <silent><expr> ( complete_parameter#pre_complete("()")
+"smap <c-j> <Plug>(complete_parameter#goto_next_parameter)
+"imap <c-j> <Plug>(complete_parameter#goto_next_parameter)
+"smap <c-k> <Plug>(complete_parameter#goto_previous_parameter)
+"imap <c-k> <Plug>(complete_parameter#goto_previous_parameter)
 
 
 " 定义快捷键到行首和行尾
@@ -160,19 +165,23 @@ endfunction
 vnoremap <silent> * :call VisualSearch('f')<CR>
 vnoremap <silent> # :call VisualSearch('b')<CR>
 " 在文件名上按gf时，在新的tab中打开
-"map gf :tabnew <cfile><cr>
+map gf :tabnew <cfile><cr>
+
 " 用c-j,k在buffer之间切换
 nn <C-J> :bn<cr>
 nn <C-K> :bp<cr>
 nn <C-H> :b1<cr>
+
 " Bash(Emacs)风格键盘绑定
 imap <C-e> <END>
 imap <C-a> <HOME>
 "imap <C-u> <esc>d0i
 "imap <C-k> <esc>d$i  " 与自动补全中的绑定冲突
+
 " 恢复上次文件打开位置
-set viminfo='10,\"100,:20,%,n~/.viminfo
+"set viminfo='10,\"100,:20,%,n~/.viminfo
 "au BufReadPost if line("'\"") > 0|if line("'\"") <= line("{1}quot;)|exe("norm '\"")|else|exe "norm {1}quot;|endif|endif
+
 " 删除buffer时不关闭窗口
 command! Bclose call <SID>BufcloseCloseIt()
 function! <SID>BufcloseCloseIt()
@@ -391,7 +400,7 @@ let g:bufExplorerSplitVertical=1     " Split vertically.
 let g:bufExplorerSplitVertSize = s:PlugWinSize  " Split width
 let g:bufExplorerUseCurrentWindow=1  " Open in new window.
 autocmd BufWinEnter \[Buf\ List\] setl nonumber
-nmap <silent> <leader>b :BufExplorer<CR>
+nmap <silent> <leader>bb :BufExplorer<CR>
 "--------------- For ctags --------------------
 nmap <leader>; :tag <C-R>=expand("<cword>")<CR><CR>
 nmap <leader>[ :tp<CR>
