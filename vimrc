@@ -25,30 +25,24 @@ let g:indentLine_enabled = 1
 "----------------------------------------------------
 let g:ycm_server_python_interpreter = '/usr/bin/python'
 let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
-let g:ycm_add_preview_to_completeopt = 0
-let g:ycm_show_diagnostics_ui = 0
+let g:ycm_show_diagnostics_ui = 0                  " 关闭语法提示
+let g:ycm_complete_in_comments=1                   " 补全功能在注释中同样有效
+let g:ycm_min_num_identifier_candidate_chars = 2   " 最低字符开始匹配
+let g:ycm_cache_omnifunc = 0                       "禁止缓存,每次都重新生成匹配项
+let g:ycm_seed_identifiers_with_syntax = 1         " 语法关键字补全
+let g:ycm_add_preview_to_completeopt = 1
 let g:ycm_server_log_level = 'info'
-let g:ycm_min_num_identifier_candidate_chars = 2
 let g:ycm_collect_identifiers_from_comments_and_string = 1
 let g:ycm_complete_in_string = 1
 let g:ycm_key_invoke_completion = '<c-z>'
 set completeopt=menu,menuone
 noremap <c-z> <NOP>
 let g:ycm_semantic_triggers = {'c,cpp,python,java,go,erlang,perl' : ['return!\w{2}'],'cs,lua,javascript' : ['return!\w{2}'],}
+let g:ycm_autoclose_preview_window_after_insertion = 1
 
-"----------------------------------------------------
-"                   CompleteParameter
-"----------------------------------------------------
 let g:AutoPairs = {'[':']','(':')','{':'}',"'":"'",'"':'"', '`':'`'}
-"inoremap <buffer><silent> ) <C-R>=AutoPairsInsert(')')<CR>
 
-"inoremap <silent><expr> ( complete_parameter#pre_complete("()")
-"smap <c-j> <Plug>(complete_parameter#goto_next_parameter)
-"imap <c-j> <Plug>(complete_parameter#goto_next_parameter)
-"smap <c-k> <Plug>(complete_parameter#goto_previous_parameter)
-"imap <c-k> <Plug>(complete_parameter#goto_previous_parameter)
-
-
+"
 " 定义快捷键到行首和行尾
 nmap LH 0
 nmap LT $
