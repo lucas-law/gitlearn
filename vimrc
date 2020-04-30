@@ -7,8 +7,8 @@ Plug 'vim-scripts/lookupfile'
 Plug 'vim-scripts/taglist.vim'
 Plug 'vim-scripts/echofunc.vim'
 Plug 'vim-scripts/ShowFunc.vim'
-Plug 'jiangmiao/auto-pairs'
 Plug 'ycm-core/YouCompleteMe'
+"Plug 'jiangmiao/auto-pairs'
 Plug 'Yggdroot/indentLine'
 Plug 'tenfyzhong/CompleteParameter.vim'
 call plug#end()
@@ -23,7 +23,7 @@ let g:indentLine_enabled = 1
 "----------------------------------------------------
 "                   YouCompleteMe
 "----------------------------------------------------
-let g:ycm_server_python_interpreter = '/usr/bin/python'
+let g:ycm_server_python_interpreter = '/usr/bin/python2.7'
 let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
 let g:ycm_show_diagnostics_ui = 0                  " 关闭语法提示
 let g:ycm_complete_in_comments=1                   " 补全功能在注释中同样有效
@@ -40,36 +40,47 @@ noremap <c-z> <NOP>
 let g:ycm_semantic_triggers = {'c,cpp,python,java,go,erlang,perl' : ['return!\w{2}'],'cs,lua,javascript' : ['return!\w{2}'],}
 let g:ycm_autoclose_preview_window_after_insertion = 1
 
-let g:AutoPairs = {'[':']','(':')','{':'}',"'":"'",'"':'"', '`':'`'}
+"et g:AutoPairs = {'[':']','(':')','{':'}',"'":"'",'"':'"', '`':'`'}
 
-"
+"----------------------------------------------------
+"                  set ctags bin dir 
+"----------------------------------------------------
+"let g:showfuncctagsbin = '/usr/bin/ctags'
+
 " 定义快捷键到行首和行尾
+
 nmap LH 0
 nmap LT $
- " 代码折叠
+
+" 代码折叠
 set foldmethod=manual
 
-" Last Update: 2018-02-11
-let mapleader = ";"    " 比较习惯用;作为命令前缀，右手小拇指直接能按到
+" 比较习惯用;作为命令前缀，右手小拇指直接能按到
+let mapleader = ";"    
+
 " 把空格键映射成:
 nmap <space> :
+
 " 快捷打开编辑vimrc文件的键盘绑定
 map <silent> <leader>ee :e $HOME/.vimrc<cr>
 autocmd! bufwritepost *.vimrc source $HOME/.vimrc
 " ^z快速进入shell
 "nmap <C-Z> :shell<cr>
+
 " 判断操作系统
 if (has("win32") || has("win64") || has("win32unix"))
     let g:isWin = 1
 else
     let g:isWin = 0
 endif
+
 " 判断是终端还是gvim
 if has("gui_running")
     let g:isGUI = 1
 else
     let g:isGUI = 0
 endif
+
 set nocompatible    " 关闭兼容模式
 syntax enable       " 语法高亮
 " 开启文件类型侦测
@@ -108,9 +119,12 @@ set tabstop=4
 " 不使用beep或flash
 set vb t_vb=
 set background=dark
-colorscheme desert
-"colorscheme dracula
-"set t_Co=256
+"colorscheme desert
+"colorscheme dark_plus
+set t_Co=256
+set t_ut=n
+colorscheme molokai
+
 set history=400  " vim记住的历史操作的数量，默认的是20
 set autoread     " 当文件在外部被修改时，自动重新读取
 set mouse=a      " 在所有模式下都允许使用鼠标，还可以是n,v,i,c等
@@ -132,7 +146,7 @@ else
 endif
 " 状态栏
 set laststatus=2      " 总是显示状态栏
-highlight StatusLine cterm=bold ctermfg=yellow ctermbg=blue
+highlight StatusLine cterm=bold ctermfg=black ctermbg=yellow
 " 获取当前路径，将$HOME转化为~
 function! CurDir()
     let curdir = substitute(getcwd(), $HOME, "~", "g")
@@ -158,6 +172,7 @@ endfunction
 " 用 */# 向 前/后 搜索光标下的单词
 vnoremap <silent> * :call VisualSearch('f')<CR>
 vnoremap <silent> # :call VisualSearch('b')<CR>
+
 " 在文件名上按gf时，在新的tab中打开
 map gf :tabnew <cfile><cr>
 
@@ -201,6 +216,7 @@ inoremap <leader>3 {}<esc>:let leavechar="}"<cr>i
 inoremap <leader>4 {<esc>o}<esc>:let leavechar="}"<cr>O
 inoremap <leader>q ''<esc>:let leavechar="'"<cr>i
 inoremap <leader>w ""<esc>:let leavechar='"'<cr>i
+
 " 缩写
 iab idate <c-r>=strftime("%Y-%m-%d")<CR>
 iab itime <c-r>=strftime("%H:%M")<CR>
@@ -242,6 +258,7 @@ map <F12> :!ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q .<CR><CR
 " c-j自动补全，当补全菜单打开时，c-j,k上下选择
 imap <expr> <c-j>      pumvisible()?"\<C-N>":"\<C-X><C-O>"
 imap <expr> <c-k>      pumvisible()?"\<C-P>":"\<esc>"
+
 " f:文件名补全，l:行补全，d:字典补全，]:tag补全
 imap <C-]>             <C-X><C-]>
 imap <C-F>             <C-X><C-F>
@@ -407,8 +424,3 @@ set encoding=utf-8
 
 highlight PMenu ctermfg=40 ctermbg=0
 highlight PMenuSel ctermfg=0 ctermbg=4
-
-
-
-
-
