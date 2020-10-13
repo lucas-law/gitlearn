@@ -39,6 +39,12 @@ set completeopt=menu,menuone
 noremap <c-z> <NOP>
 let g:ycm_semantic_triggers = {'c,cpp,python,java,go,erlang,perl' : ['return!\w{2}'],'cs,lua,javascript' : ['return!\w{2}'],}
 let g:ycm_autoclose_preview_window_after_insertion = 1
+"nnoremap <leader>gl :YcmCompleter GoToDeclaration<CR>
+"nnoremap <leader>gf :YcmCompleter GoToDefinition<CR>
+"nnoremap <leader>gg :YcmCompleter GoToDefinitionElseDeclaration<CR>
+"nmap <F4> : YcmDiags<CR>
+"let g:ycm_error_symbol = '>>'
+"let g:ycm_warning_symbol = '>*'
 
 "et g:AutoPairs = {'[':']','(':')','{':'}',"'":"'",'"':'"', '`':'`'}
 
