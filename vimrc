@@ -62,7 +62,7 @@ nmap LT $
 set foldmethod=manual
 
 " 比较习惯用;作为命令前缀，右手小拇指直接能按到
-let mapleader = ";"    
+let mapleader = ";"
 
 " 把空格键映射成:
 nmap <space> :
@@ -103,10 +103,10 @@ set hid             " 可以在没有保存的情况下切换buffer
 set backspace=eol,start,indent
 set whichwrap+=<,>,h,l " 退格键和方向键可以换行
 set incsearch       " 增量式搜索
-set hlsearch        " 高亮搜索
+set hlsearch        " 搜索时，高亮显示匹配结果。
 " set ignorecase      " 搜索时忽略大小写
 set magic           " 额，自己:h magic吧，一行很难解释
-set showmatch       " 显示匹配的括号
+set showmatch       " 光标遇到圆括号、方括号、大括号时，自动高亮对应的另一个圆括号、方括号和大括号。
 set nobackup        " 关闭备份
 set nowb
 set noswapfile      " 不使用swp文件，注意，错误退出后无法恢复
@@ -114,7 +114,11 @@ set lbr             " 在breakat字符处而不是最后一个字符处断行
 set ai              " 自动缩进
 set si              " 智能缩进
 set cindent         " C/C++风格缩进
+
+"命令模式下，底部操作指令按下 Tab 键自动补全。第一次按下 Tab，会显示所有匹配的操作指令的清单；第二次按下 Tab，会依次选择各个指令。
 set wildmenu
+set wildmode=longest:list,full
+
 set nofen
 set fdl=10
 " tab转化为4个字符
@@ -127,11 +131,12 @@ set vb t_vb=
 set background=dark
 "colorscheme desert
 "colorscheme dark_plus
+" 启用256色
 set t_Co=256
 set t_ut=n
 colorscheme molokai
 
-set history=400  " vim记住的历史操作的数量，默认的是20
+set history=500  " vim记住的历史操作的数量，默认的是20
 set autoread     " 当文件在外部被修改时，自动重新读取
 set mouse=a      " 在所有模式下都允许使用鼠标，还可以是n,v,i,c等
 "在gvim中高亮当前行
@@ -430,3 +435,18 @@ set encoding=utf-8
 
 highlight PMenu ctermfg=40 ctermbg=0
 highlight PMenuSel ctermfg=0 ctermbg=4
+
+"如果行尾有多余的空格(包括 Tab 键),该配置将让这些空格显示成可见的小方块
+set listchars=tab:»■,trail:■
+set list
+
+"出错时，发出视觉提示，通常是屏幕闪烁
+set visualbell
+
+"保留撤销历史
+set undofile
+
+" 光标所在的当前行高亮
+set cursorline
+
+
