@@ -655,7 +655,7 @@ set list
 set visualbell
 
 "保留撤销历史
-set undofile
+"set undofile
 
 " 光标所在的当前行高亮
 set cursorline
