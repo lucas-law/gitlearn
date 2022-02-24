@@ -90,10 +90,10 @@ endif
 " other plugin before putting this into your config.
 
 inoremap <silent><expr> <TAB>
-    \ pumvsible() ? "\<C-n>" :
+    \ pumvisible() ? "\<C-n>" :
     \ <SIG>check_back_space() ? "\<TAB>" :
     \ coc#refresh()
-inoremap <expr><S-TAB> pumvsible() ? "\<C-p>" : "\<C-h>"
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
 function! s:check_back_space() abort
     let col = col('.') - 1
