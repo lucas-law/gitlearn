@@ -21,3 +21,8 @@ vim and :PluginInstall
 sudo snap install node --classic
 ```
 
+5. for use c/c++
+```
+vim and : CocInstall coc-clangd
+vim and : CocCommand coc.clangd install
+```
